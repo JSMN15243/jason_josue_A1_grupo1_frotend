@@ -36,7 +36,14 @@ export async function  add(data) {
             headers:{"content-Type":"application/json"},
             body: JSON.stringify(data)
         })
-        if(!response.ok)
+        if(!response.ok){
+            throw new Error("Error al agregar el cliente: " + response.status+""+response.statusText)
+        }
+        const newData = await response.json()
+        return newData
+    } catch (error){
+        console.error("Error al agregar el cliente: " + error)
+        throw error
     }
 }
 
@@ -52,5 +59,11 @@ export async function getId(id) {
         console.error(error)
         throw error
     }
+}
+export async function update(id,data){
+    try {
+        const response = await fetch(`${API_BASE_URL}/${id}`)
+    }
+    
 }
 
